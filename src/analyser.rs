@@ -54,7 +54,7 @@ pub fn analyse_dir(dir_name: &String) -> Vec<FileResult> {
             let result = FileResult {
                 file_dir: String::from(file_dir),
                 file_name: String::from(file_name),
-                file_size: file_size,
+                file_size,
             };
             files.push(result);
         }

@@ -31,10 +31,10 @@ fn main() -> std::io::Result<()> {
     let total_size = files.iter().fold(0, |acc, x| acc + x.file_size);
     let elapsed_time = now.elapsed();
     println!(
-        ": {} files with total size of {} ({} ms)",
+        ": {} files with a total size of {} ({})",
         nb_files,
         formatter::format_size(total_size),
-        elapsed_time.as_millis()
+        formatter::format_time(elapsed_time.as_millis())
     );
     println!("");
     let nb_files = std::cmp::min(files.len(), args.nb_files);

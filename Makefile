@@ -1,3 +1,7 @@
+
+test:
+	cargo test
+
 run:
 	cargo run /home/dam/Téléchargements 20
 
