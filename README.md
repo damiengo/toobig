@@ -1,5 +1,7 @@
 # Toobig
 
+![CI Badge](https://github.com/damiengo/toobig/actions/workflows/makefile.yml/badge.svg)
+
 A tool written in Rust to detect biggest files in a directory.
 
 ## Build
