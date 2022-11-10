@@ -28,12 +28,17 @@ impl PartialEq for FileResult {
     }
 }
 
-pub fn analyse_dir(dir_name: &String) -> Vec<FileResult> {
+///
+/// Analyse a directory.
+/// 
+/// 
+pub fn analyse_dir(dir_name: &String) -> Result<Vec<FileResult>, std::io::Error> {
     let mut files: Vec<FileResult> = Vec::new();
 
-    let dir_md = fs::metadata(dir_name).unwrap_or_else(|error| {
-        panic!("Problem analysing directory {}: {:?}", dir_name, error.kind());
-    });
+    let dir_md = match fs::metadata(dir_name) {
+        Ok(md) => md,
+        Err(e) => return Err(e),
+    };
 
     if !dir_md.is_dir() {
         panic!(" {} is not a valid directory", dir_name);
@@ -62,5 +67,5 @@ pub fn analyse_dir(dir_name: &String) -> Vec<FileResult> {
     files.sort_by(|a, b| a.cmp(b));
     files.reverse();
 
-    return files;
+    return Ok(files);
 }

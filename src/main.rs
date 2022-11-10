@@ -1,4 +1,4 @@
-use std::{time::Instant, io::{Write, self}};
+use std::{time::Instant, io::{Write, self}, error::Error};
 use clap::Parser;
 
 mod formatter;
@@ -15,7 +15,7 @@ struct Cli {
     nb_files: usize
 }
 
-fn main() -> std::io::Result<()> {
+fn main() -> Result<(), Box<dyn Error>> {
     let args = Cli::parse();
     let dir_name = &args.path;
 
@@ -25,7 +25,7 @@ fn main() -> std::io::Result<()> {
     print!(" ==> Analysing {} ", dir_name);
     io::stdout().flush().unwrap();
 
-    let files = analyser::analyse_dir(dir_name);
+    let files = analyser::analyse_dir(dir_name)?;
 
     let nb_files = files.len();
     let total_size = files.iter().fold(0, |acc, x| acc + x.file_size);
