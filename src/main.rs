@@ -30,6 +30,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     let nb_files = files.len();
     let total_size = files.iter().fold(0, |acc, x| acc + x.file_size);
     let elapsed_time = now.elapsed();
+    if nb_files == 0 {
+        println!("     No files");
+        return Ok(());
+    }
     println!(
         "     {} files with a total size of {} ({})",
         nb_files,
