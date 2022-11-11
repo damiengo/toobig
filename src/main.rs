@@ -22,7 +22,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let now = Instant::now();
     println!("");
 
-    print!(" ==> Analysing {} ", dir_name);
+    println!(" ==> Analysing {} ", dir_name);
     io::stdout().flush().unwrap();
 
     let files = analyser::analyse_dir(dir_name)?;
@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let total_size = files.iter().fold(0, |acc, x| acc + x.file_size);
     let elapsed_time = now.elapsed();
     println!(
-        ": {} files with a total size of {} ({})",
+        "     {} files with a total size of {} ({})",
         nb_files,
         formatter::format_size(total_size),
         formatter::format_time(elapsed_time.as_millis())

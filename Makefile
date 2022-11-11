@@ -3,7 +3,7 @@ test:
 	cargo test
 
 run:
-	cargo run /home/dam/Téléchargementszz 20
+	cargo run /home/dam/Téléchargements 20
 
 build:
 	cargo build --release

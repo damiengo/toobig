@@ -1,6 +1,6 @@
-use std::{cmp::Ordering, fs};
+use std::{cmp::Ordering, fs, io::{ErrorKind, Error}};
 
-use walkdir::WalkDir;
+use walkdir::{WalkDir};
 
 // Result file
 #[derive(Eq)]
@@ -30,9 +30,8 @@ impl PartialEq for FileResult {
 
 ///
 /// Analyse a directory.
-/// 
-/// 
-pub fn analyse_dir(dir_name: &String) -> Result<Vec<FileResult>, std::io::Error> {
+///
+pub fn analyse_dir(dir_name: &String) -> Result<Vec<FileResult>, Error> {
     let mut files: Vec<FileResult> = Vec::new();
 
     let dir_md = match fs::metadata(dir_name) {
@@ -41,7 +40,7 @@ pub fn analyse_dir(dir_name: &String) -> Result<Vec<FileResult>, std::io::Error>
     };
 
     if !dir_md.is_dir() {
-        panic!(" {} is not a valid directory", dir_name);
+        return Err(Error::new(ErrorKind::Other, format!("{} is not a valid directory", dir_name)));
     }
 
     for entry in WalkDir::new(dir_name)
@@ -50,7 +49,7 @@ pub fn analyse_dir(dir_name: &String) -> Result<Vec<FileResult>, std::io::Error>
         .filter(|e| e.file_type().is_file())
     {
         let path = entry.path();
-        let meta = fs::metadata(&path).unwrap();
+        let meta = fs::metadata(&path)?;
 
         if !meta.is_dir() {
             let file_size = meta.len();
