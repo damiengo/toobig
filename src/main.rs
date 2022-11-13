@@ -23,9 +23,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("");
 
     println!(" ==> Analysing {} ", dir_name);
-    io::stdout().flush().unwrap();
+    io::stdout().flush()?;
 
-    let files = analyser::analyse_dir(dir_name)?;
+    let files = analyser::analyse_dir(dir_name).expect("Failed to analyse directory");
 
     let nb_files = files.len();
     let total_size = files.iter().fold(0, |acc, x| acc + x.file_size);
