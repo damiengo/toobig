@@ -6,6 +6,7 @@ mod analyser;
 
 // Command line
 #[derive(Parser)]
+#[clap(version, about = "A tool to detect biggest files in a directory", long_about = None)]
 struct Cli {
     /// The path of the directory to read
     path: String,
