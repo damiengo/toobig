@@ -15,7 +15,7 @@ struct Cli {
     nb_files: usize
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn run() -> Result<(), Box<dyn Error>> {
     let args = Cli::parse();
     let dir_name = &args.path;
 
@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!(" ==> Analysing {} ", dir_name);
     io::stdout().flush()?;
 
-    let files = analyser::analyse_dir(dir_name).expect("Failed to analyse directory");
+    let files = analyser::analyse_dir(dir_name)?;
 
     let nb_files = files.len();
     let total_size = files.iter().fold(0, |acc, x| acc + x.file_size);
@@ -51,5 +51,11 @@ fn main() -> Result<(), Box<dyn Error>> {
         );
     }
     println!("");
+    Ok(())
+}
+
+fn main() -> Result<(), String> {
+    run().map_err(|e| e.to_string())?;
+
     Ok(())
 }

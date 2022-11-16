@@ -6,7 +6,7 @@ test:
 	cargo test
 
 run:
-	cargo run /home/dam/Téléchargementsss 20
+	cargo run /home/dam/Téléchargementss 20
 
 build:
 	cargo build --release
